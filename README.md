@@ -1,0 +1,2 @@
+# M04S03_Git_02
+Implementación sobre la FREESCALE FRDM-KL02Z: control de Estado del LED RGB (GPIOB) de mediante caracteres ingresados a través del puerto Serial (UART0), lectura de datos de posición del Acelerómetro de tres Ejes MMA8451Q presente en la plataforma mediante caracteres referentes a ejes (x, y, z), más impresión en Terminal Serial. Esta es una implementación de prueba para el Módulo 4 del Diplomado de IoT, la optimización y lógica se basan en la propia experiencia del estudiante creador y la orientación del docente a cargo del módulo.

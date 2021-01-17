@@ -39,7 +39,9 @@
 #include "clock_config.h"
 #include "MKL02Z4.h"
 #include "fsl_debug_console.h"
+
 /* TODO: insert other include files here. */
+#include "sdk_uart0.h"
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -48,25 +50,27 @@
  */
 int main(void) {
 
-  	/* Init board hardware. */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
+	/* Init board hardware. */
+	BOARD_InitBootPins();
+	BOARD_InitBootClocks();
+	BOARD_InitBootPeripherals();
 #ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
-    /* Init FSL debug console. */
-    BOARD_InitDebugConsole();
+	/* Init FSL debug console. */
+	BOARD_InitDebugConsole();
 #endif
 
-    PRINTF("Hello World\n");
+	/* Init UART0 to Set Baudrate. */
+	(void) UART0_SetUp(115200);
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
-    }
-    return 0 ;
+	while (1) {
+		status_t status;
+		uint8_t new_byte;
+		if (UART0_NewDataOnBuffer() > 0) {
+			status = UART0_ReadByteCircularBuffer(&new_byte);
+			if (status == kStatus_Success) {
+				printf("Dato: %c\r\n", new_byte);
+			}
+		}
+	}
+	return 0;
 }

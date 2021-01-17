@@ -5,3 +5,11 @@
 
 # Exclude: FreeRTOS_TAD_logs folder
 *FreeRTOS_TAD_logs
+
+# Exclude: Debug and Release temporal folders
+/MKL02Z32VFM4_UART_GPIO_ACCEL/Debug/
+/MKL02Z32VFM4_UART_GPIO_ACCEL/Release/
+/MKL02Z32VFM4_UART_GPIO_ACCEL/doc/
+
+#Exclude: Others
+*Notes.txt

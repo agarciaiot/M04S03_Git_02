@@ -2,7 +2,7 @@
  * @author  Alvaro Luis Garcia Romero (Quote)
  * @version 1.0.0
  * @date    17/01/2021
- * @brief   Driver para
+ * @brief   Driver para GIPOB
  * @details
  *
  */
@@ -14,11 +14,11 @@
 
 
 /*!
- * @addtogroup X
+ * @addtogroup SDK_HAL
  * @{
  */
 /*!
- * @addtogroup X
+ * @addtogroup GPIOB
  * @{
  */
 /*******************************************************************************
@@ -37,7 +37,8 @@
  * Public Prototypes                                                           *
  *******************************************************************************/
 
-/** @} */ // end of X group
-/** @} */ // end of X group
+/** @} */ // end of GPIOB group
+
+/** @} */ // end of SDK_HAL group
 
 #endif /* SDK_GPIOB_H_ */

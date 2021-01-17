@@ -2,7 +2,7 @@
  * @author  Alvaro Luis Garcia Romero (Quote)
  * @version 1.0.0
  * @date    17/01/2021
- * @brief   Driver para 
+ * @brief   Driver para UART0
  * @details
  *
 */

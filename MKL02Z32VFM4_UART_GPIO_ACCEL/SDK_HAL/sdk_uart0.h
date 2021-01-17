@@ -2,7 +2,7 @@
  * @author  Alvaro Luis Garcia Romero (Quote)
  * @version 1.0.0
  * @date    17/01/2021
- * @brief   Driver para 
+ * @brief   Driver para UART0
  * @details
  *
  */
@@ -14,7 +14,7 @@
 #include "fsl_common.h"
 
 /*!
- * @addtogroup SDK
+ * @addtogroup SDK_HAL
  * @{
  */
 /*!
@@ -60,6 +60,6 @@ status_t UART0_ReadByteCircularBuffer(uint8_t *new_byte);
 
 /** @} */ // end of UART0 group
 
-/** @} */ // end of SDK group
+/** @} */ // end of SDK_HAL group
 
 #endif /* SDK_UART0_H_ */

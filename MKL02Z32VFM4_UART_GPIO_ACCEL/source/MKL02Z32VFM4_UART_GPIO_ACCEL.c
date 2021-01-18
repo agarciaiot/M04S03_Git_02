@@ -43,6 +43,7 @@
 /* TODO: insert other include files here. */
 #include "sdk_uart0.h"
 #include "sdk_gpiob.h"
+#include "sdk_i2c0.h"
 
 /* TODO: insert other definitions and declarations here. */
 

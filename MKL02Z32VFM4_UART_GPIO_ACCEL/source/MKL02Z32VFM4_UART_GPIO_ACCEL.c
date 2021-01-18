@@ -27,7 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 /**
  * @file    MKL02Z32VFM4_UART_GPIO_ACCEL.c
  * @brief   Application entry point.
@@ -42,6 +42,7 @@
 
 /* TODO: insert other include files here. */
 #include "sdk_uart0.h"
+#include "sdk_gpiob.h"
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -60,15 +61,26 @@ int main(void) {
 #endif
 
 	/* Init UART0 to Set Baudrate. */
-	(void) UART0_SetUp(115200);
+	(void) UART0_SetUp(115200); /*!< 115200 Bps */
+
+	PRINTF("Use el teclado para controlar el Estado de los LEDs RGB\r\n");
+	PRINTF("Para el Led Rojo (Red) presione:\r\n");
+	PRINTF("(R) para Encender o (r) para Apagar\r\n");
+	PRINTF("Para el Led Green (Verde) presione:\r\n");
+	PRINTF("(G) para Encender o (g) para Apagar\r\n");
+	PRINTF("Para el Led Blue (Azul) presione:\r\n");
+	PRINTF("(B) para Encender o (b) para Apagar\r\n");
+	PRINTF("\r\n");
 
 	while (1) {
 		status_t status;
-		uint8_t new_byte;
+		uint8_t new_byte_uart0;
 		if (UART0_NewDataOnBuffer() > 0) {
-			status = UART0_ReadByteCircularBuffer(&new_byte);
+			status = UART0_ReadByteCircularBuffer(&new_byte_uart0);
 			if (status == kStatus_Success) {
-				printf("Dato: %c\r\n", new_byte);
+				printf("Dato: %c\r\n", new_byte_uart0);
+				/* PUBLIC FUCNTION Led Status*/
+				GPIO_PinStatus(&new_byte_uart0);
 			}
 		}
 	}

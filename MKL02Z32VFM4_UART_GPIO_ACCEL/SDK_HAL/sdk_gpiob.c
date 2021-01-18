@@ -38,58 +38,68 @@
 
 status_t GPIO_PinStatus(uint8_t *new_char) {
 	uint8_t i = 0, j = 0;
-	uint8_t status_led;
+	uint8_t status_pin;
 	uint16_t gpio_pin;
 	uint16_t gpio_port;
 
+	/* @ConditionalLoop Codificacion GPIO Pin y Status */
 	for (i = 0; i <= 2; i++) {
 
 		for (j = 0; j <= 1; j++) {
 
+			/* @ConditionalPin  Codificacion de GPIO Pin */
 			if (*new_char == RGB_CHAR_LIST[i][j]) {
 
+				/* @ConditionalPinStatusR GPIO Pin PTB6 (Led Red) */
 				if (i == 0) {
 					gpio_pin = kPTB6;
 					if (j == 0)
-						status_led = 0;
+						status_pin = 0;
 					if (j == 1)
-						status_led = 1;
-				}
+						status_pin = 1;
+				} /* @EndConditionalPinStatusR */
 
+				/* @ConditionalPinStatusG GPIO Pin PTB6 (Led Red) */
 				if (i == 1) {
 					gpio_pin = kPTB7;
 					if (j == 0)
-						status_led = 0;
+						status_pin = 0;
 					if (j == 1)
-						status_led = 1;
-				}
+						status_pin = 1;
+				} /* @EndConditionalPinStatusG */
 
+				/* @ConditionalPinStatusB GPIO Pin PTB6 (Led Red) */
 				if (i == 2) {
 					gpio_pin = kPTB10;
 					if (j == 0)
-						status_led = 0;
+						status_pin = 0;
 					if (j == 1)
-						status_led = 1;
-				}
+						status_pin = 1;
+				} /* @EndConditionalPinStatusB */
 
-			}
+			} /* @EndConditionalPin */
 
 		}
 
-	}
+	} /* @EndConditionalLoop */
 
+	/* Tomar los 8 bits MS del gpio_pin para asignar el codigo GPIO Port */
 	gpio_port = gpio_pin & 0xFF00;
-	gpio_port >>= 8;
+	gpio_port >>= 8; /*!< GPIO(Port) <- 0x0000 (Port A) o <- 0x0001 (Port B) */
 
+	/* Solo disponible para rango de pines de (0 a 15) por Puerto */
 	if ((gpio_pin & 0x00FF) > 0x000F)
 		return (kStatus_Fail);
 
+	/* Mascara para la funcion de estado Set o Clear */
 	uint32_t gpio_mask = (uint32_t) (1 << ((uint8_t) gpio_pin));
 
 	switch (gpio_port) {
 
+	/* @CaseA Asignacion de Puerto A y Mascara al Pin seleccionado */
 	case kGPIOA:
-		switch (status_led) {
+		/* @CaseA_Exe Ejecucion segun Pin Status, Clear (0) o Set (1)*/
+		switch (status_pin) {
 		case 0:
 			GPIO_PortClear(GPIOA, gpio_mask);
 			break;
@@ -99,11 +109,13 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 		default:
 			return (kStatus_Fail);
 			break;
-		}
-		break;
+		} /* @EndCaseA_Exe */
+		break; /* @EndCaseA */
 
+		/* @CaseB Asignacion de Puerto A y Mascara al Pin seleccionado */
 	case kGPIOB:
-		switch (status_led) {
+		/* @CaseB_Exe Ejecucion segun Pin Status, Clear (0) o Set (1)*/
+		switch (status_pin) {
 		case 0:
 			GPIO_PortClear(GPIOB, gpio_mask);
 			break;
@@ -113,8 +125,8 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 		default:
 			return (kStatus_Fail);
 			break;
-		}
-		break;
+		} /* @EndCaseB_Exe */
+		break; /* @EndCaseB */
 
 	default:
 		return (kStatus_Fail);

@@ -21,9 +21,11 @@
  * @addtogroup GPIOB
  * @{
  */
+
 /*******************************************************************************
  * Public Definitions                                                          *
  *******************************************************************************/
+
 /*@{*/
 /*! @brief Array con Caracteres Condicionales.
  *
@@ -31,13 +33,15 @@
  * @chars
  * // Definicion de Estados para los LED PINs
  * RGB_CHAR_LIST = {
- *      kPORT_PullUp,
- *      kPORT_FastSlewRate,
- *      kPORT_PassiveFilterDisable,
- *      kPORT_OpenDrainDisable,
- *      kPORT_LowDriveStrength,
- *      kPORT_MuxAsGpio,
- *      kPORT_UnLockRegister,
+ *      "Rr", Select Port B (GPIOB) -> Pin PTB6 (Led Red)
+ *      	'R', Status (0), Port Clear (0), (Led Red ON)
+ *      	'r', Status (1), Port Set (1), (Led Red OFF)
+ *      "Gg", Select GPIOB -> Led Green
+ *      	'G', Status (0), Port Clear (0), (Led Green ON)
+ *      	'g', Status (1), Port Set (1), (Led Green OFF)
+ *      "Bb", Select GPIOB -> Led Blue
+ *      	'R', Status (0), Port Clear (0), (Led Blue ON)
+ *      	'r', Status (1), Port Set (1), (Led Blue OFF)
  * };
  * @endchars
  */

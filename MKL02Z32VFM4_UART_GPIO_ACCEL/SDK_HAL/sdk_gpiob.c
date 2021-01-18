@@ -87,8 +87,8 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 	gpio_port = gpio_pin & 0xFF00;
 	gpio_port >>= 8; /*!< GPIO(Port) <- 0x0000 (Port A) o <- 0x0001 (Port B) */
 
-	/* Solo disponible para rango de pines de (0 a 15) por Puerto */
-	if ((gpio_pin & 0x00FF) > 0x000F)
+	/* Solo disponible para rango de pines de (0 a 31) por Puerto */
+	if ((gpio_pin & 0x00FF) > 0x001F)
 		return (kStatus_Fail);
 
 	/* Mascara para la funcion de estado Set o Clear */

@@ -27,7 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 /**
  * @file    MKL02Z32VFM4_UART_GPIO_ACCEL.c
  * @brief   Application entry point.
@@ -39,7 +39,10 @@
 #include "clock_config.h"
 #include "MKL02Z4.h"
 #include "fsl_debug_console.h"
+
 /* TODO: insert other include files here. */
+#include "sdk_uart0.h"
+#include "sdk_gpiob.h"
 
 /* TODO: insert other definitions and declarations here. */
 
@@ -47,26 +50,39 @@
  * @brief   Application entry point.
  */
 int main(void) {
+	status_t status;
+	uint8_t new_byte_uart0;
 
-  	/* Init board hardware. */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
+	/* Init board hardware. */
+	BOARD_InitBootPins();
+	BOARD_InitBootClocks();
+	BOARD_InitBootPeripherals();
 #ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
-    /* Init FSL debug console. */
-    BOARD_InitDebugConsole();
+	/* Init FSL debug console. */
+	BOARD_InitDebugConsole();
 #endif
 
-    PRINTF("Hello World\n");
+	/* Init UART0 to Set Baudrate. */
+	(void) UART0_SetUp(115200); /*!< 115200 Bps */
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
-    }
-    return 0 ;
+	PRINTF("Use el teclado para controlar el Estado de los LEDs RGB\r\n");
+	PRINTF("Para el Led Rojo (Red) presione:\r\n");
+	PRINTF("(R) para Encender o (r) para Apagar\r\n");
+	PRINTF("Para el Led Green (Verde) presione:\r\n");
+	PRINTF("(G) para Encender o (g) para Apagar\r\n");
+	PRINTF("Para el Led Blue (Azul) presione:\r\n");
+	PRINTF("(B) para Encender o (b) para Apagar\r\n");
+	PRINTF("\r\n");
+
+	while (1) {
+		if (UART0_NewDataOnBuffer() > 0) {
+			status = UART0_ReadByteCircularBuffer(&new_byte_uart0);
+			if (status == kStatus_Success) {
+				printf("Dato: %c\r\n", new_byte_uart0);
+				/* PUBLIC FUCNTION Led Status*/
+				GPIO_PinStatus(&new_byte_uart0);
+			}
+		}
+	}
+	return 0;
 }

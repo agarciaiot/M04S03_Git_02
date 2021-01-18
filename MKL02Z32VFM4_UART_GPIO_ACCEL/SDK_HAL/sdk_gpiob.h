@@ -45,7 +45,7 @@
  * };
  * @endchars
  */
-static uint8_t RGB_CHAR_LIST[3][2] = {"Rr","Gg","Bb"};
+static uint8_t RGB_CHAR_LIST[3][2] = {"Rr","Gg","Bb"};  /*<! ¿01_00? */
 /*@}*/
 
 /*!

@@ -50,6 +50,8 @@
  * @brief   Application entry point.
  */
 int main(void) {
+	status_t status;
+	uint8_t new_byte_uart0;
 
 	/* Init board hardware. */
 	BOARD_InitBootPins();
@@ -73,8 +75,6 @@ int main(void) {
 	PRINTF("\r\n");
 
 	while (1) {
-		status_t status;
-		uint8_t new_byte_uart0;
 		if (UART0_NewDataOnBuffer() > 0) {
 			status = UART0_ReadByteCircularBuffer(&new_byte_uart0);
 			if (status == kStatus_Success) {

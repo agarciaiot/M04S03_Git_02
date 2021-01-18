@@ -52,7 +52,7 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 
 				/* @ConditionalPinStatusR GPIO Pin PTB6 (Led Red) */
 				if (i == 0) {
-					gpio_pin = kPTB6;
+					gpio_pin = kPTB6; /*!< KL02 pin-1 in QFN pinout diagram */
 					if (j == 0)
 						status_pin = 0;
 					if (j == 1)
@@ -61,7 +61,7 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 
 				/* @ConditionalPinStatusG GPIO Pin PTB6 (Led Red) */
 				if (i == 1) {
-					gpio_pin = kPTB7;
+					gpio_pin = kPTB7; /*!< KL02 pin-2 in QFN pinout diagram */
 					if (j == 0)
 						status_pin = 0;
 					if (j == 1)
@@ -70,7 +70,7 @@ status_t GPIO_PinStatus(uint8_t *new_char) {
 
 				/* @ConditionalPinStatusB GPIO Pin PTB6 (Led Red) */
 				if (i == 2) {
-					gpio_pin = kPTB10;
+					gpio_pin = kPTB10; /*!< KL02 pin-13 in QFN pinout diagram */
 					if (j == 0)
 						status_pin = 0;
 					if (j == 1)

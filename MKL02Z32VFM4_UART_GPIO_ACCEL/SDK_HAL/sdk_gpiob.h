@@ -33,19 +33,19 @@
  * @chars
  * // Definicion de Estados para los LED PINs
  * RGB_CHAR_LIST = {
- *      "Rr", Select Port B (GPIOB) -> Pin PTB6 (Led Red)
+ *      "R" or "r", Select Port B (GPIOB) -> Pin PTB6 (Led Red)
  *      	'R', Status (0), Port Clear (0), (Led Red ON)
  *      	'r', Status (1), Port Set (1), (Led Red OFF)
- *      "Gg", Select GPIOB -> Led Green
+ *      "G" or "g", Select Port B (GPIOB) -> Pin PTB7 (Led Green)
  *      	'G', Status (0), Port Clear (0), (Led Green ON)
  *      	'g', Status (1), Port Set (1), (Led Green OFF)
- *      "Bb", Select GPIOB -> Led Blue
+ *      "B" or "b", Select Port B (GPIOB) -> Pin PTB10 (Led Red)
  *      	'R', Status (0), Port Clear (0), (Led Blue ON)
  *      	'r', Status (1), Port Set (1), (Led Blue OFF)
  * };
  * @endchars
  */
-static uint8_t RGB_CHAR_LIST[3][2] = {"Rr","Gg","Bb"};  /*<! ¿01_00? */
+#define RGB_CHAR_LIST "R" "r" "G" "g" "B" "b"
 /*@}*/
 
 /*!

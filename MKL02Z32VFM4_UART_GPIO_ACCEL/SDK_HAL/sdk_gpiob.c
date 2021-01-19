@@ -36,18 +36,17 @@
  * Public Source Code                                                          *
  *******************************************************************************/
 
-status_t GPIO_PinStatus(uint8_t *new_char) {
+status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list) {
 	uint8_t i = 0;
-	uint8_t j_s = sizeof(RGB_CHAR_LIST) - 1;
 	uint8_t status_pin;
 	uint16_t gpio_pin;
 	uint16_t gpio_port;
 
 	/* @ConditionalLoop Codificacion GPIO Pin y Status */
-	for (i = 0; i <= j_s; i++) {
+	for (i = 0; i <= 6; i++) {
 
-		/* @ConditionalPin  Codificacion de GPIO Pin */
-		if (*new_char == RGB_CHAR_LIST[i]) {
+		/* @ConditionalPin  Condicional de GPIO Pin */
+		if (*rgb_char == rgb_char_list[i]) {
 
 			/* @ConditionalPinStatusR GPIO Pin PTB6 (Led Red) */
 			if (i == 0 || i == 1) {

@@ -26,28 +26,6 @@
  * Public Definitions                                                          *
  *******************************************************************************/
 
-/*@{*/
-/*! @brief Array con Caracteres Condicionales.
- *
- * Definicion de respuesta por el ingreso de caracteres para Pin Led GPIOB.
- * @chars
- * // Definicion de Estados para los LED PINs
- * RGB_CHAR_LIST = {
- *      "R" or "r", Select Port B (GPIOB) -> Pin PTB6 (Led Red)
- *      	'R', Status (0), Port Clear (0), (Led Red ON)
- *      	'r', Status (1), Port Set (1), (Led Red OFF)
- *      "G" or "g", Select Port B (GPIOB) -> Pin PTB7 (Led Green)
- *      	'G', Status (0), Port Clear (0), (Led Green ON)
- *      	'g', Status (1), Port Set (1), (Led Green OFF)
- *      "B" or "b", Select Port B (GPIOB) -> Pin PTB10 (Led Red)
- *      	'R', Status (0), Port Clear (0), (Led Blue ON)
- *      	'r', Status (1), Port Set (1), (Led Blue OFF)
- * };
- * @endchars
- */
-#define RGB_CHAR_LIST "R" "r" "G" "g" "B" "b"
-/*@}*/
-
 /*!
  * @brief Lista de Puertos disponibles para GPIO para la MKL02Z32
  */
@@ -111,7 +89,7 @@ enum _gpio_pin_list_available
  * Public Prototypes                                                           *
  *******************************************************************************/
 
-status_t GPIO_PinStatus(uint8_t *new_char);
+status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list);
 
 /** @} */ // end of GPIOB group
 

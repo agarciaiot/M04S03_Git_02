@@ -40,12 +40,21 @@
 #include "MKL02Z4.h"
 #include "fsl_debug_console.h"
 
-/* TODO: insert other include files here. */
+/*  SDK_HAL Included Files */
 #include "sdk_uart0.h"
 #include "sdk_gpiob.h"
 #include "sdk_i2c0.h"
 
-/* TODO: insert other definitions and declarations here. */
+/*******************************************************************************
+ * Definitions                                                                 *
+ *******************************************************************************/
+
+/* UART e I2C Clock */
+#define UART_BAUDRATE	115200U
+#define I2C_BAUDRATE	100000U
+
+/* CharacterArray: Condicionales para Led RGB (GPIOB) y ACCEL (GPIOA e I2C) */
+#define CHAR_LIST	"R" "r" "G" "g" "B" "b" "M" "m" "X" "x" "Y" "y" "Z" "z"
 
 /*
  * @brief   Application entry point.
@@ -64,7 +73,7 @@ int main(void) {
 #endif
 
 	/* Init UART0 to Set Baudrate. */
-	(void) UART0_SetUp(115200); /*!< 115200 Bps */
+	(void) UART0_SetUp(UART_BAUDRATE); /*!< 115200 Bps */
 
 	PRINTF("Use el teclado para controlar el Estado de los LEDs RGB\r\n");
 	PRINTF("Para el Led Rojo (Red) presione:\r\n");
@@ -81,7 +90,7 @@ int main(void) {
 			if (status == kStatus_Success) {
 				printf("Dato: %c\r\n", new_byte_uart0);
 				/* PUBLIC FUCNTION Led Status*/
-				GPIO_PinStatus(&new_byte_uart0);
+				GPIO_PinStatus(&new_byte_uart0, (uint8_t *)CHAR_LIST);
 			}
 		}
 	}

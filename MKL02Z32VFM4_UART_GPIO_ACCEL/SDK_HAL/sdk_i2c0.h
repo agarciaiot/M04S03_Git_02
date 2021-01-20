@@ -37,6 +37,18 @@
  * Public Prototypes                                                           *
  *******************************************************************************/
 
+/*!
+ * @brief Inicializa I2C0 a la velocidad en baudios (Bps) indicada
+ *
+ * @param baud_rate   Configuration de velocidad en Baudios para I2C
+ * @return            Resultado de la ejecución
+ * @code
+ * 		kStatus_Success
+ * 		kStatus_Fail
+ * @endcode
+ */
+status_t I2C0_MasterInit(uint32_t baud_rate);
+
 
 /** @} */ // end of I2C group
 

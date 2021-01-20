@@ -90,7 +90,7 @@ int main(void) {
 			if (status == kStatus_Success) {
 				printf("Dato: %c\r\n", new_byte_uart0);
 				/* PUBLIC FUCNTION Led Status*/
-				GPIO_PinStatus(&new_byte_uart0, (uint8_t *)CHAR_LIST);
+				GPIO_PinStatus(&new_byte_uart0, (uint8_t*) CHAR_LIST);
 			}
 		}
 	}

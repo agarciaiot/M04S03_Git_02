@@ -25,6 +25,18 @@
  * Public Definitions                                                          *
  *******************************************************************************/
 
+/*!
+ * @brief Lista de direcciones de memoria para lectura de posición ACCEL
+ */
+enum _i2c_addresst_list_out_data {
+	kXMSB = 0x01, /* !< OUT X MSB */
+	kXLSB, /* !< OUT X LSB */
+	kYMSB, /* !< OUT Y MSB */
+	kYLSB, /* !< OUT Y LSB */
+	kZMSB, /* !< OUT Z MSB */
+	kZLSB, /* !< OUT > LSB */
+};
+
 /*******************************************************************************
  * External vars                                                               *
  *******************************************************************************/
@@ -67,6 +79,10 @@ status_t I2C0_MasterInit(uint32_t baud_rate);
  */
 status_t I2C0_MasterReadStatusByte(uint8_t device_address, int8_t register_address, int8_t devide_id);
 
+
+
+status_t I2C0_MasterReadValue(uint8_t *i2c_char, uint8_t *i2c_char_list,
+		uint8_t *data, uint8_t device_address, uint32_t *memory_address);
 
 
 //status_t I2C0_ReadAccelValue(uint8_t device_address, uint8_t *rxBuff);

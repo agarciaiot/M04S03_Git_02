@@ -42,7 +42,7 @@ status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list, uint8_t statu
 	uint16_t gpio_port;
 
 	/* @ConditionalLoop Codificacion GPIO Pin y Status */
-	for (i = 0; i <= 6; i++) {
+	for (i = 0; i <= 5; i++) {
 
 		/* @ConditionalPin  Condicional de GPIO Pin */
 		if (*rgb_char == rgb_char_list[i]) {

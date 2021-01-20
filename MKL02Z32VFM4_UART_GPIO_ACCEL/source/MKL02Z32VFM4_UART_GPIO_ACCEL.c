@@ -68,12 +68,22 @@
  */
 int main(void) {
 
-	uint8_t i = 0;
+	uint8_t i;
 	uint8_t size_char_list = sizeof(CHAR_LIST);
 
-	status_t status_uart0;
-	status_t status_i2c0;
-	uint8_t new_byte_uart0;
+	/* Status UART0 e I2C */
+	status_t uart0_status;
+	status_t i2c0_status;
+
+	/* Nuevos datos en UART0 y ACCE */
+	uint8_t uart0_new_byte;
+	uint8_t i2c0_data_value[2];
+
+	/* Tempora para direccion de memoria ACCE */
+	uint32_t address_outdata[2];
+
+	/* Axis para calculo de ACCE */
+	int16_t x, y, z;
 
 	/* Init board hardware. */
 	BOARD_InitBootPins();
@@ -89,7 +99,6 @@ int main(void) {
 
 	/* Inicializar I2C0 al Baudrate indicado */
 	(void) I2C0_MasterInit(I2C_BAUDRATE); /*!< 100000 Bps */
-
 
 	PRINTF("Use el teclado para:\r\n");
 	PRINTF("Control de estado de los LEDs RGB\r\n");
@@ -112,32 +121,42 @@ int main(void) {
 
 		if (UART0_NewDataOnBuffer() > 0) {
 
-			status_uart0 = UART0_ReadByteCircularBuffer(&new_byte_uart0);
+			uart0_status = UART0_ReadByteCircularBuffer(&uart0_new_byte);
 
-			status_i2c0 = I2C0_MasterReadStatusByte(I2C_DEVICE_ADDRESS,
-			WHO_AM_I, DEVICE_ID);
+			i2c0_status = I2C0_MasterReadStatusByte(I2C_DEVICE_ADDRESS, WHO_AM_I, DEVICE_ID);
 
-			if (status_uart0 == kStatus_Success) {
+			if (uart0_status == kStatus_Success) {
 
-				printf("Dato: %c\r\n", new_byte_uart0);
+				printf("Dato ingresado: %c\r\n", uart0_new_byte);
+
+				I2C0_MasterReadValue(&uart0_new_byte, (uint8_t*) CHAR_LIST, (uint8_t*) i2c0_data_value, I2C_DEVICE_ADDRESS, (uint32_t*) address_outdata);
 
 				for (i = 0; i < size_char_list; i++) {
-					if (new_byte_uart0 == CHAR_LIST[i]) {
+					if (uart0_new_byte == CHAR_LIST[i]) {
 						if (i == 0 || i == 2 || i == 4) {
-							GPIO_PinStatus(&new_byte_uart0,
-									(uint8_t*) CHAR_LIST, 0);
+							GPIO_PinStatus(&uart0_new_byte, (uint8_t*) CHAR_LIST, 0);
 						}
 						if (i == 1 || i == 3 || i == 5) {
-							GPIO_PinStatus(&new_byte_uart0,
-									(uint8_t*) CHAR_LIST, 1);
+							GPIO_PinStatus(&uart0_new_byte, (uint8_t*) CHAR_LIST, 1);
 						}
 						if (i == 6 || i == 7) {
-							if (status_i2c0 == kStatus_Success) {
+							if (i2c0_status == kStatus_Success) {
 								printf("MMA8451Q Encontrado!\r\n");
 							} else {
 								printf("MMA8451Q Error!\r\n");
 							}
-
+						}
+						if (i == 8 || i == 9) {
+							x = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
+							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], x);
+						}
+						if (i == 10 || i == 11) {
+							y = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
+							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], y);
+						}
+						if (i == 12 || i == 13) {
+							z = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
+							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], z);
 						}
 
 					}
@@ -153,3 +172,4 @@ int main(void) {
 	return 0;
 
 }
+//							printf("Valor equivalente en (g) para el eje  %c LSB: %5d\r\n",(uint8_t)CHAR_LIST[i], i2c0_data_value[1]);

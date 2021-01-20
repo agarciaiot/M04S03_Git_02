@@ -97,3 +97,55 @@ status_t I2C0_MasterReadStatusByte(uint8_t device_address, int8_t register_addre
 		return (kStatus_Fail);
 	}
 }
+
+status_t I2C0_MasterReadValue(uint8_t *i2c_char, uint8_t *i2c_char_list,
+		uint8_t *data, uint8_t device_address, uint32_t *memory_address){
+
+	i2c_master_transfer_t masterXfer;
+	uint8_t i;
+	uint8_t size;
+	uint8_t i2c_rx_buffer[1];
+//	uint32_t memory_address[2];
+
+	for (i = 8; i <= 13; i++) {
+		if (*i2c_char == i2c_char_list[i]) {
+			if (i == 8 || i == 9) {
+				memory_address[0] = kXMSB;
+				memory_address[1] = kXLSB;
+				break;
+			}
+
+			if (i == 10 || i == 11) {
+				memory_address[0] = kYMSB;
+				memory_address[1] = kYLSB;
+				break;
+			}
+
+			if (i == 12 || i == 13) {
+				memory_address[0] = kZMSB;
+				memory_address[1] = kZLSB;
+				break;
+			}
+
+		}
+	}
+
+	masterXfer.flags = kI2C_TransferDefaultFlag;
+	masterXfer.slaveAddress = device_address;
+	masterXfer.direction = kI2C_Read;
+
+	masterXfer.data = i2c_rx_buffer;
+	masterXfer.dataSize = 1;
+
+	for (i = 0; i <= 1; i++) {
+		size = 1;
+		masterXfer.subaddressSize = size;
+		masterXfer.subaddress = memory_address[i];
+		I2C_MasterTransferBlocking(I2C0, &masterXfer);
+
+		data[i] = i2c_rx_buffer[0];
+
+	}
+	return (kStatus_Success);
+}
+

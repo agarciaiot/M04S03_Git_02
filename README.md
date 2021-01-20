@@ -20,7 +20,7 @@ _El ingreso por teclado de los caracteres resultará en:_
 
 * ‘b', impresión por puerto serial del mensaje “Dato: b”, desactivación del Led RGB en Blue (Azul)
 
-* ‘M' o ‘m’, impresión por puerto serial del mensaje “Dato: M” o “Dato: m”, impresión por puerto serial del mensaje “MMA8451Q Habilitado” si está habilitada el Acelerómetro o impresión del mensaje “MMA8451Q Error” en el caso contrario
+* ‘M' o ‘m’, impresión por puerto serial del mensaje “Dato: M” o “Dato: m”, impresión por puerto serial del mensaje “MMA8451Q Encontrado!” si está habilitada el Acelerómetro o impresión del mensaje “MMA8451Q Error!” en el caso contrario
 
 * ‘X' o 'x', 'Y' o 'y', 'Z' o 'z', impresión por puerto serial del mensaje “Dato: ‘X’ o ‘Y’ o ‘Z’” o “Dato: ‘x’ o ‘y’ o ‘z’ ”, más impresión por puerto Serial del mensaje: “Valor equivalente en (g) para el eje ‘X’ o ‘Y’ o ‘Z’: '_dato calculado del acelerómetro_' ”
 

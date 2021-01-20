@@ -36,9 +36,8 @@
  * Public Source Code                                                          *
  *******************************************************************************/
 
-status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list) {
+status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list, uint8_t status_pin) {
 	uint8_t i = 0;
-	uint8_t status_pin;
 	uint16_t gpio_pin;
 	uint16_t gpio_port;
 
@@ -51,28 +50,19 @@ status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list) {
 			/* @ConditionalPinStatusR GPIO Pin PTB6 (Led Red) */
 			if (i == 0 || i == 1) {
 				gpio_pin = kPTB6; /*!< KL02 pin-1 in QFN pinout diagram */
-				if (i == 0)
-					status_pin = 0;
-				if (i == 1)
-					status_pin = 1;
+				break;
 			} /* @EndConditionalPinStatusR */
 
 			/* @ConditionalPinStatusG GPIO Pin PTB6 (Led Red) */
 			if (i == 2 || i == 3) {
 				gpio_pin = kPTB7; /*!< KL02 pin-2 in QFN pinout diagram */
-				if (i == 2)
-					status_pin = 0;
-				if (i == 3)
-					status_pin = 1;
+				break;
 			} /* @EndConditionalPinStatusG */
 
 			/* @ConditionalPinStatusB GPIO Pin PTB6 (Led Red) */
 			if (i == 4 || i == 5) {
 				gpio_pin = kPTB10; /*!< KL02 pin-13 in QFN pinout diagram */
-				if (i == 4)
-					status_pin = 0;
-				if (i == 5)
-					status_pin = 1;
+				break;
 			} /* @EndConditionalPinStatusB */
 
 		} /* @EndConditionalPin */
@@ -108,7 +98,7 @@ status_t GPIO_PinStatus(uint8_t *rgb_char, uint8_t *rgb_char_list) {
 		} /* @EndCaseA_Exe */
 		break; /* @EndCaseA */
 
-		/* @CaseB Asignacion de Puerto A y Mascara al Pin seleccionado */
+		/* @CaseB Asignacion de Puerto B y Mascara al Pin seleccionado */
 	case kGPIOB:
 		/* @CaseB_Exe Ejecucion segun Pin Status, Clear (0) o Set (1)*/
 		switch (status_pin) {

@@ -5,7 +5,7 @@
  * @brief   Driver para I2C con ACCEL
  * @details
  *
-*/
+ */
 /*******************************************************************************
  * Includes                                                                    *
  *******************************************************************************/
@@ -16,48 +16,43 @@
  * Definitions                                                                 *
  *******************************************************************************/
 
-
 /*******************************************************************************
  * Private Prototypes                                                          *
  *******************************************************************************/
-
 
 /*******************************************************************************
  * External vars                                                               *
  *******************************************************************************/
 
-
 /*******************************************************************************
  * Private vars                                                                  *
  *******************************************************************************/
-
 
 /*******************************************************************************
  * Private Source Code                                                         *
  *******************************************************************************/
 
-
 /*******************************************************************************
  * Public Source Code                                                          *
  *******************************************************************************/
- 
-status_t I2C0_MasterInit(uint32_t baud_rate){
+
+status_t I2C0_MasterInit(uint32_t baud_rate) {
 	i2c_master_config_t masterConfig;
 	uint32_t sourceClock = 0;
 
-    /*!
-     *  Parametros por Defecto para masterConfig, estructura de configuracion
-     *  maestra I2C:
-     * @_paramcode
-     * 		baudRate_Bps = 100000U;
-     * 		enableStopHold = false;
-     * 		glitchFilterWidth = 0U;
-     * 		enableMaster = true;
-     * @end_paramcode
-     */
+	/*!
+	 *  Parametros por Defecto para masterConfig, estructura de configuracion
+	 *  maestra I2C:
+	 * @_paramcode
+	 * 		baudRate_Bps = 100000U;
+	 * 		enableStopHold = false;
+	 * 		glitchFilterWidth = 0U;
+	 * 		enableMaster = true;
+	 * @end_paramcode
+	 */
 
 	I2C_MasterGetDefaultConfig(&masterConfig);
-	if (baud_rate < 100000U){
+	if (baud_rate < 100000U) {
 		masterConfig.baudRate_Bps = baud_rate;
 	}
 
@@ -78,5 +73,27 @@ status_t I2C0_MasterInit(uint32_t baud_rate){
 	 */
 
 	I2C_MasterInit(I2C0, &masterConfig, sourceClock);
-	return(kStatus_Success);
+	return (kStatus_Success);
+}
+
+status_t I2C0_MasterReadStatusByte(uint8_t device_address, int8_t register_address, int8_t devide_id) {
+
+	i2c_master_transfer_t masterXfer;
+	uint8_t i2c_rx_buffer[1];
+
+	masterXfer.slaveAddress = device_address;
+	masterXfer.direction = kI2C_Read;
+	masterXfer.subaddress = (uint32_t) register_address;
+	masterXfer.subaddressSize = 1;
+	masterXfer.data = i2c_rx_buffer;
+	masterXfer.dataSize = 1;
+	masterXfer.flags = kI2C_TransferDefaultFlag;
+
+	I2C_MasterTransferBlocking(I2C0, &masterXfer);
+
+	if (i2c_rx_buffer[0] == devide_id) {
+		return (kStatus_Success);
+	} else {
+		return (kStatus_Fail);
+	}
 }

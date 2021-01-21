@@ -69,7 +69,7 @@
 int main(void) {
 
 	uint8_t i;
-	uint8_t size_char_list = sizeof(CHAR_LIST);
+  	uint8_t size_char_list = sizeof(CHAR_LIST);
 
 	/* Status UART0 e I2C */
 	status_t uart0_status;
@@ -125,11 +125,14 @@ int main(void) {
 
 			i2c0_status = I2C0_MasterReadStatusByte(I2C_DEVICE_ADDRESS, WHO_AM_I, DEVICE_ID);
 
+			I2C_MasterWriteMode(I2C_DEVICE_ADDRESS, 4, 1);
+
 			if (uart0_status == kStatus_Success) {
 
-				printf("Dato ingresado: %c\r\n", uart0_new_byte);
+				PRINTF("\r\nDato ingresado: %c\r\n", uart0_new_byte);
 
-				I2C0_MasterReadValue(&uart0_new_byte, (uint8_t*) CHAR_LIST, (uint8_t*) i2c0_data_value, I2C_DEVICE_ADDRESS, (uint32_t*) address_outdata);
+				I2C0_MasterReadValue(&uart0_new_byte, (uint8_t*) CHAR_LIST,
+						(uint8_t*) i2c0_data_value, I2C_DEVICE_ADDRESS, (uint32_t*) address_outdata);
 
 				for (i = 0; i < size_char_list; i++) {
 					if (uart0_new_byte == CHAR_LIST[i]) {
@@ -141,35 +144,32 @@ int main(void) {
 						}
 						if (i == 6 || i == 7) {
 							if (i2c0_status == kStatus_Success) {
-								printf("MMA8451Q Encontrado!\r\n");
+								PRINTF("\r\nMMA8451Q Encontrado!\r\n");
 							} else {
-								printf("MMA8451Q Error!\r\n");
+								PRINTF("\r\nMMA8451Q Error!\r\n");
 							}
 						}
 						if (i == 8 || i == 9) {
-							x = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
-							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], x);
+							x = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
+							PRINTF("\r\nACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %4d mg\r\n\n",
+									i2c0_data_value[0], i2c0_data_value[1], x);
 						}
 						if (i == 10 || i == 11) {
-							y = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
-							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], y);
+							y = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
+							PRINTF("\r\nACCE: Y_MSB: 0x%x  Y_LSB: 0x%x, Calculo en Y = %4d mg\r\n\n",
+									i2c0_data_value[0], i2c0_data_value[1], y);
 						}
 						if (i == 12 || i == 13) {
-							z = ((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1]))) / 4;
-							printf("ACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %5d g\r\n", i2c0_data_value[0], i2c0_data_value[1], z);
+							z = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
+							PRINTF("\r\nACCE: Z_MSB: 0x%x  Z_LSB: 0x%x, Calculo en Z = %4d mg\r\n\n",
+									i2c0_data_value[0], i2c0_data_value[1], z);
 						}
-
 					}
-
 				}
-
+			}else{
+				PRINTF("\r\nData Error: %c\r\n");
 			}
-
 		}
-
 	}
-
 	return 0;
-
 }
-//							printf("Valor equivalente en (g) para el eje  %c LSB: %5d\r\n",(uint8_t)CHAR_LIST[i], i2c0_data_value[1]);

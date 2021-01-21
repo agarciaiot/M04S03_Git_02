@@ -151,17 +151,17 @@ int main(void) {
 						}
 						if (i == 8 || i == 9) {
 							x = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
-							PRINTF("\r\nACCE: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %4d mg\r\n\n",
+							PRINTF("\r\nACCEL: X_MSB: 0x%x  X_LSB: 0x%x, Calculo en X = %4d mg\r\n\n",
 									i2c0_data_value[0], i2c0_data_value[1], x);
 						}
 						if (i == 10 || i == 11) {
 							y = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
-							PRINTF("\r\nACCE: Y_MSB: 0x%x  Y_LSB: 0x%x, Calculo en Y = %4d mg\r\n\n",
+							PRINTF("\r\nACCEL: Y_MSB: 0x%x  Y_LSB: 0x%x, Calculo en Y = %4d mg\r\n\n",
 									i2c0_data_value[0], i2c0_data_value[1], y);
 						}
 						if (i == 12 || i == 13) {
 							z = (((int16_t) (((i2c0_data_value[0] << 8) | i2c0_data_value[1])))) / 2;
-							PRINTF("\r\nACCE: Z_MSB: 0x%x  Z_LSB: 0x%x, Calculo en Z = %4d mg\r\n\n",
+							PRINTF("\r\nACCEL: Z_MSB: 0x%x  Z_LSB: 0x%x, Calculo en Z = %4d mg\r\n\n",
 									i2c0_data_value[0], i2c0_data_value[1], z);
 						}
 					}

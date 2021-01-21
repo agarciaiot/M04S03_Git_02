@@ -8,23 +8,23 @@ _Control de Estado del LED RGB (GPIOB) de la FREESCALE FRDM-KL02Z mediante carac
 
 _El ingreso por teclado de los caracteres resultará en:_
 
-* ‘R’, impresión por puerto serial del mensaje “Dato: R”, activación del Led RGB en Red (Rojo)
+* Ingreso de ‘R’, impresión por puerto serial del mensaje “Dato ingresado: R”, activación del Led RGB en Red (Rojo)
 
-* ‘r’, impresión por puerto serial del mensaje “Dato: r”, desactivación del Led RGB en Red (Rojo)
+* Ingreso de ‘r’, impresión por puerto serial del mensaje “Dato ingresado: r”, desactivación del Led RGB en Red (Rojo)
 
-* ‘G’, impresión por puerto serial del mensaje “Dato: G”, activación del Led RGB en Green (Verde)
+* Ingreso de ‘G’, impresión por puerto serial del mensaje “Dato ingresado: G”, activación del Led RGB en Green (Verde)
 
-* ‘g’, impresión por puerto serial del mensaje “Dato: g”, desactivación del Led RGB en Green (Verde)
+* Ingreso de ‘g’, impresión por puerto serial del mensaje “Dato ingresado: g”, desactivación del Led RGB en Green (Verde)
 
-* ‘B’, impresión por puerto serial del mensaje “Dato: B”, activación del Led RGB en Blue (Azul)
+* Ingreso de ‘B’, impresión por puerto serial del mensaje “Dato ingresado: B”, activación del Led RGB en Blue (Azul)
 
-* ‘b', impresión por puerto serial del mensaje “Dato: b”, desactivación del Led RGB en Blue (Azul)
+* Ingreso de ‘b', impresión por puerto serial del mensaje “Dato ingresado: b”, desactivación del Led RGB en Blue (Azul)
 
-* ‘M' o ‘m’, impresión por puerto serial del mensaje “Dato: M” o “Dato: m”, impresión por puerto serial del mensaje “MMA8451Q Encontrado!” si está habilitada el Acelerómetro o impresión del mensaje “MMA8451Q Error!” en el caso contrario
+* Ingreso de ‘M' o ‘m’, impresión por puerto serial del mensaje “Dato: M” o “Dato: m”, impresión por puerto serial del mensaje “MMA8451Q Encontrado!” si está habilitada el Acelerómetro o impresión del mensaje “MMA8451Q Error!” en el caso contrario
 
-* ‘X' o 'x', 'Y' o 'y', 'Z' o 'z', impresión por puerto serial del mensaje “Dato: ‘X’ o ‘Y’ o ‘Z’” o “Dato: ‘x’ o ‘y’ o ‘z’ ”, más impresión por puerto Serial del mensaje: “Valor equivalente en (g) para el eje ‘X’ o ‘Y’ o ‘Z’: '_dato calculado del acelerómetro_' ”
+* Ingreso de ‘X' o 'x', 'Y' o 'y', 'Z' o 'z', impresión por puerto serial del mensaje “Dato: (‘X’ o ‘Y’ o ‘Z’)” o “Dato ingresado: (‘x’ o ‘y’ o ‘z’)”, más impresión por puerto Serial del mensaje: "ACCEL: (EJE)_MSB: (valor en eje MSB en Hex)  (EJE))_LSB: (valor en eje LSB en Hex), Calculo en (EJE)) = (Valor entero en mg) mg”
 
-* 'Otros caracteres', impresión por puerto serial del mensaje “Dato: ‘Otros caracteres’”, Led RGB y lectura del acelerómetro sin cambios
+* Ingreso de ‘Otros caracteres', impresión por puerto serial del mensaje “Dato: ‘Otros caracteres’”, Led RGB y lectura del acelerómetro sin cambios
 
 * Si no existe conexión serial o no se lee el dato se imprimirá el mensaje "Data Error"
 
@@ -44,3 +44,62 @@ _Las herramientas software utilizadas en la construcción se basan en:_
 
 * [MCUXpresso IDE v11.2.1 [Build 4149] [2020-10-07]](https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-integrated-development-environment-ide:MCUXpresso-IDE) - IDE usado para la construcción, programación, depuración y pruebas
 * [SourceTree 3.4.1 [2020-12-31]](https://www.sourcetreeapp.com/) - Git GUI usado para el control de versiones
+
+_Otras herramientas tipo Serial Terminal GUI para pruebas externas al IDE_
+* [Docklight v2.3.26](https://docklight.de/downloads/)
+* [QCOM v1.6 (15.01.16.10.100) [Rev. 1.1] [2015-03-30]](https://www.quectel.com/product/ec25.htm)
+
+### Documentación y Notas:
+
+* [FRDM-KL02Z - User Manua (REV 0)l](https://www.nxp.com/docs/en/user-guide/FRDMKL02ZUM.pdf) - Manual de Usuario para la FRDM-LK02Z
+
+* [FRDM-KL02Z Schematics (REV C)](https://www.nxp.com/downloads/en/schematics/FRDM-KL02Z_SCH_REV_C.pdf) - Esquemático de la FRDM-LK02Z
+
+* [Kinetis KL02: 48MHz Cortex-M0+ 8-32KB Flash (16-32 pin) (REV 3.1)](https://www.nxp.com/docs/en/reference-manual/KL02P32M48SF0RM.pdf) - Manual de Referencias para la Sub-Familia KL02 **(MKL02Z32VFM4(R))**
+
+* [MMA8451Q, 3-Axis, 14-bit/8-bit Digital Accelerometer - Data Sheet (REV 10.3)](https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf) - Datasheet del MMA8451Q
+
+* [AN4069, Offset Calibration of the MMA8451, 2, 3Q - Application Notes (REV 1)](https://www.nxp.com/docs/en/application-note/AN4069.pdf) - Nota de Aplicación sobre Calibración para el MMA8451Q
+
+* [AN4076, Data Manipulation and Basic Settings of the MMA8451, 2, 3Q - Application Notes (REV 1)](https://www.nxp.com/docs/en/application-note/AN4076.pdf) - Nota de Aplicación sobre la Conversión de datos y Configuración del MMA8451Q
+
+## Librerías utilizadas/requeridas:
+
+_Las que están incluidas en el repositorio y las librerías internas de la placa de desarrollo_
+
+## Pre-requisitos:
+
+* Instalación previa del programa **MCUXpresso IDE de NXP** en la versión referenciada
+
+* Consultar de la documentación de desarrollo y gestión sobre el programa ([MCUXpresso Integrated Development Environment (IDE)](https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-integrated-development-environment-ide:MCUXpresso-IDE?&tab=Documentation_Tab&linkline=Users-Guide))
+
+* Instalación en el programa del SDK necesario para le ejecución del proyecto con configuración activa ([MCUXpresso Software Development Kit (SDK)](https://www.nxp.com/design/software/development-software/mcuxpresso-software-and-tools-/mcuxpresso-software-development-kit-sdk:MCUXpresso-SDK))
+
+## Instalación:
+
+_Para descargar del respositorio en archivo *.rar se recomienda seguir los pasos siguientes para prevenir errores:_
+
+* Descomprimir el archivo *.rar en una ubicación conocida y copiar la ruta de acceso al espacio de trabajo (por simplicidad se recomienda la ruta del sistema: C:'\'"nombre carpeta repositorio en disco"'\')
+
+* Iniciar el Programa **MCUXpresso IDE** y en el lanzador de espacio de trabajo _(Workspace)_ asignar la ruta anterior, si ya posee una ruta de espacio de trabajo por defecto iniciar el programa en esa ruta y en la barra de menús ir a _File > Switch Workspace > Other_ digitar la ruta asignada lanzar en _Launch_, el programa se reiniciará y se lanzará en la ruta asignada como Workspace
+
+* Para importar el proyecto en la barra de menús ir a _File > Import_ en la ventana _Import_ seleccionar el desplegable _General > Existing Projects into Workspace_ en _Browse..._ seleccionar la carpeta del proyecto (MKL02Z32VFM4_UART_GPIO_ACCEL), aparecerá en la lista en el cuadro Projects: seleccionarlo y luego aplicar en _Finish_, se iniciará la carga de los archivos y sdk necesarios para la ejecución
+
+* Una vez cargado el proyecto presione _Ctrl+B_ para iniciar la primera depuración y comprobar que no existan errores.
+
+## Ejecución de Pruebas:
+
+_Se ejecutaron pruebas de envío/recepción de datos sobre los terminales Seriales:_
+
+* MCUXpresso IDE v11.2.1 [Evidencia](https://youtu.be/dLQwkH8vXfA)
+
+## Autores y Colaboradores:
+
+* **Álvaro García** - *Trabajo Inicial* - [agarciaiot](https://github.com/agarciaiot)
+* **Ernesto Rincón** - *Documentación y Asesoría* - [ErnestoARC](https://github.com/ErnestoARC)
+
+## Licencia:
+
+Este proyecto está bajo la Licencia gratuita (MIT License) - mira el archivo [LICENSE.md](https://github.com/agarciaiot/M04S03_Git_02/blob/main/LICENSE) para detalles
+
+Desarrollado por [agarciaiot](https://github.com/agarciaiot) para el Diplomado de IoT (Internet of Things, en Español: _**Internet de las Cosas**_) del Programa de [Ingeniería Electrónica en la Universidad del Magdalena](https://www.unimagdalena.edu.co/presentacionPrograma/Programa/1005).
